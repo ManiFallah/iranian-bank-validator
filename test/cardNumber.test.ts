@@ -3,13 +3,13 @@ import { isValidCardNumber } from '../src/validators/cardNumber';
 describe('isValidCardNumber', () => {
   it('should return true for valid card numbers', () => {
     expect(isValidCardNumber('6037997512345670')).toBe(true); // ملی
-    expect(isValidCardNumber('6104337923456789')).toBe(true); // ملت
     expect(isValidCardNumber('6274129005473742')).toBe(true); // اقتصاد نوین
   });
 
   it('should return false for card numbers with invalid checksum', () => {
     expect(isValidCardNumber('6037997512345671')).toBe(false);
     expect(isValidCardNumber('6104337923456788')).toBe(false);
+    expect(isValidCardNumber('6104337923456789')).toBe(false); 
   });
 
   it('should return false for card numbers with wrong length', () => {
@@ -20,7 +20,7 @@ describe('isValidCardNumber', () => {
 
   it('should return false for non-digit characters', () => {
     expect(isValidCardNumber('60379975abcd5670')).toBe(false);
-    expect(isValidCardNumber('6274-1290-0547-3742')).toBe(false); // dashes should be normalized
+    expect(isValidCardNumber('6274-1290-0547-3742')).toBe(true); // dashes should be normalized
     expect(isValidCardNumber('۶۰۳۷۹۹۷۵۱۲۳۴۵۶۷۰')).toBe(false); // Persian digits
   });
 

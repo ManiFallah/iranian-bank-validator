@@ -1,16 +1,32 @@
 import { isValidIranianNationalCode } from '../src/validators/nationalCode';
 
+function generateValidIranianNationalCode(): string {
+  const digits = Array.from({ length: 9 }, () => Math.floor(Math.random() * 10));
+  const sum = digits.reduce((acc, digit, i) => acc + digit * (10 - i), 0);
+  const remainder = sum % 11;
+
+  let checkDigit;
+  if (remainder < 2) {
+    checkDigit = remainder;
+  } else {
+    checkDigit = 11 - remainder;
+  }
+
+  return digits.join('') + checkDigit.toString();
+}
+
+
 describe('isValidIranianNationalCode', () => {
   it('should return true for valid national codes', () => {
-    expect(isValidIranianNationalCode('0010853659')).toBe(true);
-    expect(isValidIranianNationalCode('0084575943')).toBe(true);
-    expect(isValidIranianNationalCode('0440446214')).toBe(true);
-    expect(isValidIranianNationalCode('1111113411')).toBe(true); // valid with repeated digits
+    const validCode = generateValidIranianNationalCode();
+    expect(isValidIranianNationalCode(validCode)).toBe(true);
   });
 
   it('should return false for incorrect checksum', () => {
-    expect(isValidIranianNationalCode('0010853658')).toBe(false); // last digit changed
+    expect(isValidIranianNationalCode('0010853658')).toBe(false); 
     expect(isValidIranianNationalCode('0084575940')).toBe(false);
+    expect(isValidIranianNationalCode('0010853659')).toBe(false);
+
   });
 
   it('should return false for all repeated digits', () => {

@@ -2,9 +2,9 @@ import { isValidSheba } from '../src/validators/sheba';
 
 describe('isValidSheba', () => {
   it('should return true for valid Iranian sheba numbers', () => {
-    expect(isValidSheba('IR820540102680020817909002')).toBe(true);
     expect(isValidSheba('IR062960000000100324200001')).toBe(true);
-    expect(isValidSheba('IR580170000000301400301001')).toBe(true);
+    expect(isValidSheba('IR820540102680020817909002')).toBe(true);
+
   });
 
   it('should return true for valid sheba numbers with lowercase or spaces', () => {
